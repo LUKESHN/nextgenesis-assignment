@@ -1,6 +1,6 @@
 import json
 import math
-
+import csv
 
 # Calculate Euclidean distance
 def distance(point1, point2):
@@ -154,7 +154,27 @@ for agent_id in agents:
 with open("report.json", "w") as file:
     json.dump(report, file, indent=4)
 
+# ------------------------------------------------
+# STEP 6: Export top performer to CSV
+# ------------------------------------------------
 
+with open("top_performer.csv", "w", newline="") as file:
+    writer = csv.writer(file)
+
+    # Header
+    writer.writerow([
+        "agent_id",
+        "packages_delivered",
+        "total_distance",
+        "efficiency"
+    ])
+    # Top performer data
+    writer.writerow([
+        best_agent,
+        report[best_agent]["packages_delivered"],
+        report[best_agent]["total_distance"],
+        report[best_agent]["efficiency"]
+    ])
 # Display result
 print("FastBox Delivery Report")
 print("-----------------------")
@@ -174,3 +194,4 @@ for agent_id in agents:
 print("Best Agent:", report["best_agent"])
 
 print("\nReport saved successfully as report.json")
+print("Top performer saved successfully as top_performer.csv")
